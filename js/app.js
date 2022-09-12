@@ -9,7 +9,15 @@ eventListener();
 
 function eventListener()
 {
+    //SE EJECUTA CADA VEZ Q LE DAMOS CLICK AL BOTON DEL FORMULARIO
     formulario.addEventListener('submit',agregarTweet);
+
+    //AL CARGAR EL ARCHIVO, MUESTRA EL CONTENIDO DEL LOCALSTORAGE
+    document.addEventListener('DOMContentLoaded',()=>{
+        tweets = JSON.parse(localStorage.getItem('tweet')) || []; //SELECCIONAMOS LA MISMA VARIABLE GLOBAL Y GUARDAMOS AHI LO DEL LOCAL STORAGE,
+        //SINO NO HAY NADA EN EL LOCALSTORAGE, AGREGAMOS EL ARREGLO VACIO
+        crearHTML();
+    });
 }
 
 
@@ -74,8 +82,15 @@ function crearHTML() {
             listaTweets.appendChild(li);
         });
     }
+
+    sincronizarStorage();
 }
 
+function sincronizarStorage()
+{
+    localStorage.setItem('tweet',JSON.stringify(tweets)); //AGREGAMOS AL LOCALSTORAGE Y LO CONVERTIMOS EN STRING
+}
+//LIMPIAMOS EL HTML CADA VEZ Q SE AGREGUE UNA LISTA
 function limpiarHTML() {
     while(listaTweets.firstChild)
     {
