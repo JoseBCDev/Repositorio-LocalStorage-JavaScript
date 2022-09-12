@@ -78,12 +78,30 @@ function crearHTML() {
             //AÑADIMOS TEXTO
             li.innerText = tweet.tweet;
 
+            //CREAMOS EL BOTON ELIMINAR
+            const btnEliminar = document.createElement('a');
+            btnEliminar.textContent = 'X';
+            btnEliminar.classList.add('borrar-tweet');
+
+            //FUNCION AL BOTON CUANDO LE DAN CLICK
+            btnEliminar.onclick = ()=>{
+                borrarTweet(tweet.id);
+            };
+            //AGREGAMOS EL BOTON AL HTML
+            li.appendChild(btnEliminar);
             //INSERTAMOS LAS LISTAS COMO HIJOS EN ->listaTweets
             listaTweets.appendChild(li);
         });
     }
 
     sincronizarStorage();
+}
+function borrarTweet(id)
+{
+    //CUANDO EL FILTER ES DE UN PARAMETRO Y LA CONDICION ES SIMPLE, SE RECOMIENDA NO USAR {} NI ()
+    tweets = tweets.filter(tweet => tweet.id !== id);
+    
+    crearHTML();
 }
 
 function sincronizarStorage()
